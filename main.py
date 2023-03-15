@@ -7,6 +7,7 @@ pygame.display.set_caption("Zfight")
 BLUE=(0,0,255)
 FPS = 60
 SPRITE_DIM = 55
+VEL = 5
 
 GOKU = pygame.image.load(os.path.join('assets','goku.png'))
 GOKU = pygame.transform.scale(GOKU,(SPRITE_DIM,SPRITE_DIM))             #resizing the sprites
@@ -31,9 +32,18 @@ def main():
         for event in pygame.event.get():            #checks for the events in pygame
             if event.type == pygame.QUIT:
                 run=False
-        
+        keys_pressed = pygame.key.get_pressed()
+
+        if(keys_pressed[pygame.K_a]):    #move goku left
+            gok.x -= VEL
+        if(keys_pressed[pygame.K_d]):    #move goku left
+            gok.x += VEL
+        if(keys_pressed[pygame.K_w]):    #move goku left
+            gok.y -= VEL
+        if(keys_pressed[pygame.K_s]):    #move goku left
+            gok.y += VEL
+
         draw_win(gok,veg)
-        gok.x +=1
 
     pygame.quit()
 
