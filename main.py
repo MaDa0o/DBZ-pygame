@@ -36,12 +36,21 @@ def main():
 
         if(keys_pressed[pygame.K_a]):    #move goku left
             gok.x -= VEL
-        if(keys_pressed[pygame.K_d]):    #move goku left
+        if(keys_pressed[pygame.K_d]):    #move goku right
             gok.x += VEL
-        if(keys_pressed[pygame.K_w]):    #move goku left
+        if(keys_pressed[pygame.K_w]):    #move goku up
             gok.y -= VEL
-        if(keys_pressed[pygame.K_s]):    #move goku left
+        if(keys_pressed[pygame.K_s]):    #move goku down
             gok.y += VEL
+
+        if(keys_pressed[pygame.K_LEFT]):    #move vegeta left
+            veg.x -= VEL
+        if(keys_pressed[pygame.K_RIGHT]):    #move vegeta right
+            veg.x += VEL
+        if(keys_pressed[pygame.K_UP]):    #move vegeta up
+            veg.y -= VEL
+        if(keys_pressed[pygame.K_DOWN]):    #move vegeta down
+            veg.y += VEL
 
         draw_win(gok,veg)
 
