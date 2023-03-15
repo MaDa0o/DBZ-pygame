@@ -6,13 +6,18 @@ WIN = pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Zfight")
 BLUE=(0,0,255)
 FPS = 60
+SPRITE_DIM = 55
 
 GOKU = pygame.image.load(os.path.join('assets','goku.png'))
+GOKU = pygame.transform.scale(GOKU,(SPRITE_DIM,SPRITE_DIM))
 VEGETA = pygame.image.load(os.path.join('assets','vegeta.png'))
+VEGETA = pygame.transform.scale(VEGETA,(SPRITE_DIM,SPRITE_DIM))
+
 
 def draw_win():
     WIN.fill(BLUE)
-    WIN.blit(GOKU,(200,0))
+    WIN.blit(GOKU,(200,250))
+    WIN.blit(VEGETA,(WIDTH-200,250))
     pygame.display.update()             #we have to manually update the display when we change it
 
 def main():
