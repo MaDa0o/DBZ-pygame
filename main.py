@@ -9,27 +9,31 @@ FPS = 60
 SPRITE_DIM = 55
 
 GOKU = pygame.image.load(os.path.join('assets','goku.png'))
-GOKU = pygame.transform.scale(GOKU,(SPRITE_DIM,SPRITE_DIM))
+GOKU = pygame.transform.scale(GOKU,(SPRITE_DIM,SPRITE_DIM))             #resizing the sprites
 VEGETA = pygame.image.load(os.path.join('assets','vegeta.png'))
 VEGETA = pygame.transform.scale(VEGETA,(SPRITE_DIM,SPRITE_DIM))
 
 
-def draw_win():
+def draw_win(gok, veg):
     WIN.fill(BLUE)
-    WIN.blit(GOKU,(200,250))
-    WIN.blit(VEGETA,(WIDTH-200,250))
-    pygame.display.update()             #we have to manually update the display when we change it
+    WIN.blit(GOKU,(gok.x,gok.y))                #adding the sprites to the display, every object is called a surface in python
+    WIN.blit(VEGETA,(veg.x,veg.y))
+    pygame.display.update()                 #we have to manually update the display when we change it
 
 def main():
+    gok = pygame.Rect(200, 250, SPRITE_DIM, SPRITE_DIM)
+    veg = pygame.Rect(WIDTH-200, 250, SPRITE_DIM, SPRITE_DIM)
+
     clock=pygame.time.Clock()
     run = True
     while run:
-        clock.tick(FPS)                         #defining the speed of while loop so that it runs at same speed in all devices
+        clock.tick(FPS)                             #defining the speed of while loop so that it runs at same speed in all devices
         for event in pygame.event.get():            #checks for the events in pygame
             if event.type == pygame.QUIT:
                 run=False
         
-        draw_win()
+        draw_win(gok,veg)
+        gok.x +=1
 
     pygame.quit()
 
