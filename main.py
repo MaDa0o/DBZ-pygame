@@ -2,9 +2,13 @@ import pygame
 
 WIDTH, HEIGHT = 900, 500
 WIN = pygame.display.set_mode((WIDTH,HEIGHT))
-pygame.display.set_caption("CONNECT4")
+pygame.display.set_caption("Zfight")
 BLUE=(0,0,255)
 FPS = 60
+
+def draw_win():
+    WIN.fill(BLUE)
+    pygame.display.update()             #we have to manually update the display when we change it
 
 def main():
     clock=pygame.time.Clock()
@@ -14,9 +18,8 @@ def main():
         for event in pygame.event.get():            #checks for the events in pygame
             if event.type == pygame.QUIT:
                 run=False
-
-            WIN.fill(BLUE)
-            pygame.display.update()             #we have to manually update the display when we change it
+        
+        draw_win()
 
     pygame.quit()
 
