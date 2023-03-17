@@ -25,7 +25,9 @@ GOKU = pygame.transform.scale(GOKU,(SPRITE_DIM,SPRITE_DIM))             #resizin
 VEGETA = pygame.image.load(os.path.join('assets','vegeta.png'))
 VEGETA = pygame.transform.scale(VEGETA,(SPRITE_DIM,SPRITE_DIM))
 BG=pygame.transform.scale(pygame.image.load(os.path.join('assets','background.jpg')),(WIDTH,HEIGHT))
+
 HEALTH_FONT = pygame.font.SysFont('comisans',40)
+WINNER_FONT = pygame.font.SysFont('comicsans', 100)
 
 def draw_win(gok, veg, gok_blast, veg_blast, GOKU_HEALTH, VEGETA_HEALTH):
     WIN.blit(BG,(0,0))
@@ -83,6 +85,12 @@ def blast_handle(gok_blast, veg_blast, gok, veg):
             elif blast.x<= 0:
                   veg_blast.remove(blast)
 
+def draw_winner(WINNER):
+      text=WINNER_FONT.render(WINNER, 1, BLUE)
+      WIN.blit(text, (WIDTH //2 - text.get_width()//2, HEIGHT//2 - text.get_height()//2))
+      pygame.display.update()
+      pygame.time.delay(5000)
+
 def main():
     gok = pygame.Rect(200, 250, SPRITE_DIM, SPRITE_DIM)
     veg = pygame.Rect(WIDTH-200, 250, SPRITE_DIM, SPRITE_DIM)
@@ -109,13 +117,25 @@ def main():
                         blast = pygame.Rect(veg.x, veg.y + veg.height//2 -2 ,10,5)
                         veg_blast.append(blast)
 
+            
+            WINNER = ""
+
+            if GOKU_HEALTH <=0:
+                  WINNER="VEGETA WINS!"
+            
+            if VEGETA_HEALTH <=0:
+                  WINNER="GOKU WINS!"
+            
+            if WINNER != "":
+                  draw_winner(WINNER)
+                  main()
+
             if event.type == GOKU_HIT:
                   GOKU_HEALTH -=1
 
             if event.type == VEGETA_HIT:
                   VEGETA_HEALTH -=1
 
-        print(gok_blast,veg_blast)
         keys_pressed = pygame.key.get_pressed()
         move_goku(keys_pressed,gok)
         move_vegeta(keys_pressed,veg)
