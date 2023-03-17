@@ -1,5 +1,6 @@
 import pygame
 import os
+pygame.font.init()
 
 WIDTH, HEIGHT = 900, 500
 WIN = pygame.display.set_mode((WIDTH,HEIGHT))
@@ -8,6 +9,7 @@ BLUE=(0,0,255)
 BLACK=(0,0,0)
 YELLOW=(255,255,0)
 PURPLE=(255,0,255)
+GREEN=(0,255,0)
 FPS = 60
 SPRITE_DIM = 55
 VEL = 5
@@ -22,11 +24,18 @@ GOKU = pygame.image.load(os.path.join('assets','goku.png'))
 GOKU = pygame.transform.scale(GOKU,(SPRITE_DIM,SPRITE_DIM))             #resizing the sprites
 VEGETA = pygame.image.load(os.path.join('assets','vegeta.png'))
 VEGETA = pygame.transform.scale(VEGETA,(SPRITE_DIM,SPRITE_DIM))
+BG=pygame.transform.scale(pygame.image.load(os.path.join('assets','background.jpg')),(WIDTH,HEIGHT))
+HEALTH_FONT = pygame.font.SysFont('comisans',40)
 
-
-def draw_win(gok, veg, gok_blast, veg_blast):
-    WIN.fill(BLUE)
+def draw_win(gok, veg, gok_blast, veg_blast, GOKU_HEALTH, VEGETA_HEALTH):
+    WIN.blit(BG,(0,0))
     pygame.draw.rect(WIN, BLACK, BORDER)
+
+    goku_health_text= HEALTH_FONT.render("Health: " + str(GOKU_HEALTH), 1, GREEN)
+    vegeta_health_text= HEALTH_FONT.render("Health: " + str(VEGETA_HEALTH), 1, GREEN)
+    WIN.blit(goku_health_text,(10,10))
+    WIN.blit(vegeta_health_text,(WIDTH - vegeta_health_text.get_width() - 10,10))
+
     WIN.blit(GOKU,(gok.x,gok.y))                #adding the sprites to the display, every object is called a surface in python
     WIN.blit(VEGETA,(veg.x,veg.y))
 
@@ -81,6 +90,9 @@ def main():
     gok_blast = []
     veg_blast = []
 
+    GOKU_HEALTH =10
+    VEGETA_HEALTH =10
+
     clock=pygame.time.Clock()
     run = True
     while run:
@@ -97,13 +109,19 @@ def main():
                         blast = pygame.Rect(veg.x, veg.y + veg.height//2 -2 ,10,5)
                         veg_blast.append(blast)
 
+            if event.type == GOKU_HIT:
+                  GOKU_HEALTH -=1
+
+            if event.type == VEGETA_HIT:
+                  VEGETA_HEALTH -=1
+
         print(gok_blast,veg_blast)
         keys_pressed = pygame.key.get_pressed()
         move_goku(keys_pressed,gok)
         move_vegeta(keys_pressed,veg)
         blast_handle(gok_blast,veg_blast,gok,veg)
 
-        draw_win(gok,veg,gok_blast,veg_blast)
+        draw_win(gok,veg,gok_blast,veg_blast,GOKU_HEALTH,VEGETA_HEALTH)
 
     pygame.quit()
 
