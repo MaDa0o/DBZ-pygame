@@ -27,6 +27,8 @@ VEGETA = pygame.image.load(os.path.join('assets','vegeta.png'))
 VEGETA = pygame.transform.scale(VEGETA,(SPRITE_DIM,SPRITE_DIM))
 BG=pygame.transform.scale(pygame.image.load(os.path.join('assets','background.jpg')),(WIDTH,HEIGHT))
 KI_SOUND= pygame.mixer.Sound('assets/kiblast.mp3')
+KI_BLAST_GOKU= pygame.transform.scale(pygame.image.load(os.path.join('assets','kiblast.png')),(30,20))
+KI_BLAST_VEGETA= pygame.transform.scale(pygame.image.load(os.path.join('assets','kiblastveg.png')),(30,20))
 
 HEALTH_FONT = pygame.font.SysFont('comisans',40)
 WINNER_FONT = pygame.font.SysFont('comicsans', 100)
@@ -44,10 +46,10 @@ def draw_win(gok, veg, gok_blast, veg_blast, GOKU_HEALTH, VEGETA_HEALTH):
     WIN.blit(VEGETA,(veg.x,veg.y))
 
     for blast in gok_blast:
-          pygame.draw.rect(WIN, YELLOW, blast)
+          WIN.blit(KI_BLAST_GOKU,(blast.x,blast.y))
     for blast in veg_blast:
-          pygame.draw.rect(WIN, PURPLE, blast)
-
+          WIN.blit(KI_BLAST_VEGETA,(blast.x,blast.y))
+          
     pygame.display.update()                 #we have to manually update the display when we change it
 
 def move_goku(keys_pressed,gok):
