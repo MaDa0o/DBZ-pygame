@@ -1,6 +1,7 @@
 import pygame
 import os
 pygame.font.init()
+pygame.mixer.init()
 
 WIDTH, HEIGHT = 900, 500
 WIN = pygame.display.set_mode((WIDTH,HEIGHT))
@@ -25,6 +26,7 @@ GOKU = pygame.transform.scale(GOKU,(SPRITE_DIM,SPRITE_DIM))             #resizin
 VEGETA = pygame.image.load(os.path.join('assets','vegeta.png'))
 VEGETA = pygame.transform.scale(VEGETA,(SPRITE_DIM,SPRITE_DIM))
 BG=pygame.transform.scale(pygame.image.load(os.path.join('assets','background.jpg')),(WIDTH,HEIGHT))
+KI_SOUND= pygame.mixer.Sound('assets/kiblast.mp3')
 
 HEALTH_FONT = pygame.font.SysFont('comisans',40)
 WINNER_FONT = pygame.font.SysFont('comicsans', 100)
@@ -111,9 +113,11 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                   if event.key == pygame.K_LCTRL and len(gok_blast) <=MAX_BLAST:
+                        KI_SOUND.play()
                         blast = pygame.Rect(gok.x + gok.width, gok.y + gok.height//2 -2 ,10,5)
                         gok_blast.append(blast)
                   if event.key == pygame.K_RCTRL and len(veg_blast) <=MAX_BLAST :
+                        KI_SOUND.play()
                         blast = pygame.Rect(veg.x, veg.y + veg.height//2 -2 ,10,5)
                         veg_blast.append(blast)
 
